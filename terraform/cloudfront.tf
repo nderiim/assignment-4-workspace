@@ -15,12 +15,32 @@ module "web_client_cdn" {
 
 
   origin = {
+    web_client = {
+      domain_name = "nderim.assignment-4.appstellar.training"
+      custom_origin_config = {
+        http_port              = 80
+        https_port             = 443
+        origin_protocol_policy = "match-viewer"
+        origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+      }
+    }
+
     s3_web_client = {
-      domain_name = module.s3_bucket.s3_bucket_bucket_domain_name
+      domain_name = module.web_client.s3_bucket_bucket_domain_name
       s3_origin_config = {
         origin_access_identity = "s3_web_client"
       }
     }
+  }
+
+  default_cache_behavior = {
+    target_origin_id           = "web_client"
+    viewer_protocol_policy     = "allow-all"
+
+    allowed_methods = ["GET", "HEAD", "OPTIONS"]
+    cached_methods  = ["GET", "HEAD"]
+    compress        = true
+    query_string    = true
   }
 
 
