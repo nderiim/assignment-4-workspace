@@ -10,7 +10,7 @@ resource "aws_cloudfront_origin_access_control" "web_client" {
 module "web_client_cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "3.2.1"
-  #aliases = [""]
+  aliases = ["nderim.appstellar.training"]
 
   comment         = "CDN for web-client"
   enabled         = true
