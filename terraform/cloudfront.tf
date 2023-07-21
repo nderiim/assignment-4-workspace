@@ -42,7 +42,7 @@ default_cache_behavior = {
 
 
   viewer_certificate = {
-    acm_certificate_arn = module.acm_certificate_arn
+    acm_certificate_arn = module.acm.acm_certificate_arn
     ssl_support_method  = "sni-only"
   }
 }
